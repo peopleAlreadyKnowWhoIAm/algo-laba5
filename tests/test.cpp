@@ -54,3 +54,22 @@ TEST(RobinKarpSearch, generated_string_with_unique_hash) {
 
   EXPECT_EQ(88, out);
 }
+
+TEST(RobinKarpSearch, real_text_test) {
+  ifstream file("resources/test3.txt");
+  EXPECT_TRUE(file.is_open()) << "Error! File couldn't open";
+  std::ostringstream a;
+  a << file.rdbuf();
+  string data = a.str();
+  file.close();
+  // string data = "abracadabra";
+
+  clock_t time = SetUpClock();
+
+  RabinKarpSearchAlgorithm r("example");
+  size_t out = r.search(data).size();
+
+  TearDownClock(time);
+
+  EXPECT_EQ(31, out);
+}
